@@ -213,7 +213,7 @@
     "title": "Custom AI Chatbot",
     "project_type": "ai_chatbot",
     "short_description": "A custom conversational chatbot built using the OpenAI SDK and prompt-based response control.",
-    "description": "Created an AI chatbot that accepts user messages and generates context-aware responses through the OpenAI SDK. System instructions were used to control the chatbot’s behaviour and communication style. API credentials were managed securely using environment variables.",
+    "description": "Created an AI chatbot that accepts user messages and generates context-aware responses through the OpenAI SDK. System instructions were used to control the chatbotâ€™s behaviour and communication style. API credentials were managed securely using environment variables.",
     "technologies": "Python, OpenAI SDK, Prompt Engineering, API Integration",
     "image": "",
     "repository_status": "public",
