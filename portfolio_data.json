@@ -1,0 +1,289 @@
+[
+{
+  "model": "bio.bio",
+  "pk": 1,
+  "fields": {
+    "full_name": "Saad Zafar",
+    "job_title": "Cybersecurity and AI Enthusiast",
+    "profile_picture": "profiles/191499162.jpg",
+    "professional_description": "Cybersecurity Analyst specializing in ethical hacking, OSINT, and web application security. I identify vulnerabilities, analyze digital threats, and help strengthen systems through responsible security testing and research.",
+    "email": "saad.zafar2004@gmail.com",
+    "phone": "03174252579",
+    "location": "Lahore",
+    "github_url": "https://github.com/Saad-Zafar1",
+    "linkedin_url": "http://www.linkedin.com/in/saad-zafar-b67101392",
+    "is_active": true,
+    "created_at": "2026-06-21T08:22:13.158Z",
+    "updated_at": "2026-06-21T08:23:57.560Z"
+  }
+},
+{
+  "model": "education.education",
+  "pk": 1,
+  "fields": {
+    "qualification": "BS Computer Science (BSCS)",
+    "institution": "University of Management and Technology (UMT)",
+    "field_of_study": "Computer Science",
+    "location": "Lahore, Pakistan",
+    "start_year": 2023,
+    "end_year": null,
+    "is_current": true,
+    "grade": "3.47",
+    "description": "6th-semester student, learning\r\nsoftware development, cyber security, databases, networking,\r\nand operating systems.",
+    "display_order": 1,
+    "is_active": true,
+    "created_at": "2026-06-21T08:33:50.552Z",
+    "updated_at": "2026-06-21T08:35:01.732Z"
+  }
+},
+{
+  "model": "skills.skill",
+  "pk": 2,
+  "fields": {
+    "name": "Cybersecurity",
+    "category": "cybersecurity",
+    "proficiency": 80,
+    "description": "Understanding of security fundamentals, threats, vulnerabilities, and responsible security testing.",
+    "display_order": 0,
+    "is_active": true,
+    "created_at": "2026-06-21T09:24:04.250Z",
+    "updated_at": "2026-06-21T09:27:23.059Z"
+  }
+},
+{
+  "model": "skills.skill",
+  "pk": 3,
+  "fields": {
+    "name": "Nmap",
+    "category": "tools",
+    "proficiency": 75,
+    "description": "Network scanning, port discovery, service detection, and basic enumeration.",
+    "display_order": 0,
+    "is_active": true,
+    "created_at": "2026-06-21T09:24:30.197Z",
+    "updated_at": "2026-06-21T09:27:23.064Z"
+  }
+},
+{
+  "model": "skills.skill",
+  "pk": 4,
+  "fields": {
+    "name": "Burp Suite",
+    "category": "tools",
+    "proficiency": 70,
+    "description": "Web request interception, modification, and basic vulnerability testing.",
+    "display_order": 2,
+    "is_active": true,
+    "created_at": "2026-06-21T09:24:59.522Z",
+    "updated_at": "2026-06-21T09:35:34.516Z"
+  }
+},
+{
+  "model": "skills.skill",
+  "pk": 5,
+  "fields": {
+    "name": "Wireshark",
+    "category": "tools",
+    "proficiency": 70,
+    "description": "Network traffic inspection and basic packet analysis.",
+    "display_order": 3,
+    "is_active": true,
+    "created_at": "2026-06-21T09:25:40.577Z",
+    "updated_at": "2026-06-21T09:25:40.577Z"
+  }
+},
+{
+  "model": "skills.skill",
+  "pk": 6,
+  "fields": {
+    "name": "Python",
+    "category": "programming",
+    "proficiency": 70,
+    "description": "Description: Python programming for automation, academic projects, and backend development.",
+    "display_order": 1,
+    "is_active": true,
+    "created_at": "2026-06-21T09:26:14.529Z",
+    "updated_at": "2026-06-21T09:26:14.529Z"
+  }
+},
+{
+  "model": "skills.skill",
+  "pk": 7,
+  "fields": {
+    "name": "Django",
+    "category": "web_development",
+    "proficiency": 59,
+    "description": "Dynamic web development using models, views, templates, admin, and database integration.",
+    "display_order": 1,
+    "is_active": true,
+    "created_at": "2026-06-21T09:26:48.638Z",
+    "updated_at": "2026-06-21T09:26:48.638Z"
+  }
+},
+{
+  "model": "skills.skill",
+  "pk": 8,
+  "fields": {
+    "name": "SQL",
+    "category": "database",
+    "proficiency": 70,
+    "description": "Database fundamentals, queries, tables, and relational concepts.",
+    "display_order": 1,
+    "is_active": true,
+    "created_at": "2026-06-21T09:27:08.536Z",
+    "updated_at": "2026-06-21T09:27:23.062Z"
+  }
+},
+{
+  "model": "skills.skill",
+  "pk": 9,
+  "fields": {
+    "name": "OSINT and Reconnaissance",
+    "category": "cybersecurity",
+    "proficiency": 85,
+    "description": "Information gathering and reconnaissance using ethical and publicly available sources.",
+    "display_order": 3,
+    "is_active": true,
+    "created_at": "2026-06-21T09:27:58.427Z",
+    "updated_at": "2026-06-21T09:27:58.427Z"
+  }
+},
+{
+  "model": "experience.experience",
+  "pk": 1,
+  "fields": {
+    "title": "AI-Based Defence System Developer",
+    "organization": "Uraan AI Techathon",
+    "experience_type": "competition",
+    "location": "Islamabad, Pakistan",
+    "start_year": 2025,
+    "end_year": 2026,
+    "is_current": false,
+    "description": "Developed a cybersecurity-focused AI solution during a\r\nnational-level technology competition. Contributed to the\r\ndesign, implementation, and presentation of the proposed\r\ndefence system. Achieved a Top 13 position nationwide.",
+    "technologies": "Python, Artificial Intelligence, Cybersecurity",
+    "display_order": 1,
+    "is_active": true,
+    "created_at": "2026-06-21T09:52:58.006Z",
+    "updated_at": "2026-06-21T09:52:58.006Z"
+  }
+},
+{
+  "model": "experience.experience",
+  "pk": 2,
+  "fields": {
+    "title": "Cybersecurity Practical Lab Experience",
+    "organization": "Personal Lab Environment",
+    "experience_type": "academic",
+    "location": "Lahore, Pakistan",
+    "start_year": 2024,
+    "end_year": null,
+    "is_current": true,
+    "description": "Built and used controlled cybersecurity lab environments\r\nfor vulnerability assessment, reconnaissance, network\r\nanalysis, and web application security testing.",
+    "technologies": "Kali Linux, Nmap, Burp Suite, Wireshark, Metasploit, DVWA",
+    "display_order": 1,
+    "is_active": true,
+    "created_at": "2026-06-21T09:54:07.376Z",
+    "updated_at": "2026-06-21T09:54:07.376Z"
+  }
+},
+{
+  "model": "projects.project",
+  "pk": 1,
+  "fields": {
+    "title": "Hate Speech Detection System",
+    "project_type": "machine_learning",
+    "short_description": "A machine-learning system that identifies hateful and non-hateful text using dataset preprocessing, lexicon-based features, and model comparison.",
+    "description": "Developed a text-classification system using a labelled hate-speech dataset. The data was cleaned and transformed into numerical features using NLP and lexicon-based techniques. Multiple machine-learning algorithms were trained and compared to evaluate their classification performance.",
+    "technologies": "Python, Pandas, Scikit-learn, NLP, Lexicon Analysis, Machine Learning",
+    "image": "",
+    "repository_status": "no_repository",
+    "github_url": "",
+    "live_url": "",
+    "is_featured": false,
+    "display_order": 3,
+    "is_active": true,
+    "created_at": "2026-06-21T10:39:57.420Z",
+    "updated_at": "2026-06-21T10:53:10.188Z"
+  }
+},
+{
+  "model": "projects.project",
+  "pk": 2,
+  "fields": {
+    "title": "Custom AI Chatbot",
+    "project_type": "ai_chatbot",
+    "short_description": "A custom conversational chatbot built using the OpenAI SDK and prompt-based response control.",
+    "description": "Created an AI chatbot that accepts user messages and generates context-aware responses through the OpenAI SDK. System instructions were used to control the chatbot’s behaviour and communication style. API credentials were managed securely using environment variables.",
+    "technologies": "Python, OpenAI SDK, Prompt Engineering, API Integration",
+    "image": "",
+    "repository_status": "public",
+    "github_url": "https://github.com/Saad-Zafar1/Chatbot",
+    "live_url": "",
+    "is_featured": false,
+    "display_order": 2,
+    "is_active": true,
+    "created_at": "2026-06-21T10:42:05.901Z",
+    "updated_at": "2026-06-21T10:53:32.282Z"
+  }
+},
+{
+  "model": "projects.project",
+  "pk": 3,
+  "fields": {
+    "title": "AI Agent System",
+    "project_type": "ai_agent",
+    "short_description": "An AI-agent application capable of using tools and completing structured, multi-step tasks.",
+    "description": "Developed an AI agent using the OpenAI SDK with tool-calling and task-processing capabilities. Unlike a basic chatbot, the agent can analyse a request, select an appropriate tool, and complete multiple steps before returning the final response.",
+    "technologies": "Python, OpenAI SDK, Tool Calling, AI Agents, API Integration",
+    "image": "",
+    "repository_status": "public",
+    "github_url": "https://github.com/Saad-Zafar1/English_Agent",
+    "live_url": "",
+    "is_featured": false,
+    "display_order": 1,
+    "is_active": true,
+    "created_at": "2026-06-21T10:44:09.541Z",
+    "updated_at": "2026-06-21T10:54:02.919Z"
+  }
+},
+{
+  "model": "projects.project",
+  "pk": 4,
+  "fields": {
+    "title": "Operating Systems Demonstration",
+    "project_type": "operating_systems",
+    "short_description": "An academic operating-systems project demonstrating major OS concepts through practical implementations.",
+    "description": "Developed an educational project to demonstrate operating-system concepts such as process management, scheduling, memory handling, and system operations. The project helped connect theoretical OS concepts with practical programming and execution behaviour.",
+    "technologies": "C or C++, Processes, Threads, Scheduling, Memory Management",
+    "image": "",
+    "repository_status": "public",
+    "github_url": "https://github.com/Saad-Zafar1/OS-Lab-Final",
+    "live_url": "",
+    "is_featured": false,
+    "display_order": 4,
+    "is_active": true,
+    "created_at": "2026-06-21T10:46:25.620Z",
+    "updated_at": "2026-06-21T10:54:57.177Z"
+  }
+},
+{
+  "model": "projects.project",
+  "pk": 5,
+  "fields": {
+    "title": "AI-Based Defence System",
+    "project_type": "cybersecurity",
+    "short_description": "A cybersecurity-focused AI solution developed for the Uraan AI Techathon, achieving a Top 13 position nationwide.",
+    "description": "Designed a proposed AI-based defence solution for identifying and responding to potential digital threats. The project combined artificial intelligence and cybersecurity concepts and was presented during the national Uraan AI Techathon, where it achieved a Top 13 position.",
+    "technologies": "Python, Artificial Intelligence, Cybersecurity",
+    "image": "",
+    "repository_status": "no_repository",
+    "github_url": "",
+    "live_url": "",
+    "is_featured": false,
+    "display_order": 5,
+    "is_active": true,
+    "created_at": "2026-06-21T10:47:46.281Z",
+    "updated_at": "2026-06-21T10:54:21.184Z"
+  }
+}
+]
