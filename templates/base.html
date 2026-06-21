@@ -1,0 +1,102 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Dynamic personal portfolio developed using Django."
+    >
+
+    <title>
+        {% block title %}
+            Dynamic Portfolio
+        {% endblock %}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}"
+    >
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="navbar section-container">
+            <a class="navbar-brand" href="#home">
+                {% if bio %}
+                    {{ bio.full_name }}
+                {% else %}
+                    Portfolio
+                {% endif %}
+            </a>
+
+            <button
+                class="menu-toggle"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                aria-controls="navigation-menu"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="navigation-menu" id="navigation-menu">
+                <a href="#home">Home</a>
+
+                {% if educations %}
+                    <a href="#education">Education</a>
+                {% endif %}
+
+                {% if skills %}
+                    <a href="#skills">Skills</a>
+                {% endif %}
+
+                {% if experiences %}
+                    <a href="#experience">Experience</a>
+                {% endif %}
+
+                {% if projects %}
+                    <a href="#projects">Projects</a>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="section-container footer-content">
+            <p>
+                {% if bio %}
+                    &copy; {% now "Y" %} {{ bio.full_name }}.
+                {% else %}
+                    &copy; {% now "Y" %} Dynamic Portfolio.
+                {% endif %}
+
+                Built with Django.
+            </p>
+
+            <a href="#home">Back to top</a>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    <script
+    src="{% static 'js/main.js' %}"
+    defer
+></script>
+</body>
+</html>

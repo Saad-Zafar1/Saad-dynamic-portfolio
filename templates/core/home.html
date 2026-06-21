@@ -1,0 +1,429 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if bio %}
+        {{ bio.full_name }} | Portfolio
+    {% else %}
+        Dynamic Portfolio
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <section class="hero-section" id="home">
+        <div class="hero-container">
+            {% if bio %}
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <p class="hero-label">
+                            Welcome to my portfolio
+                        </p>
+
+                        <h1>
+                            Hi, I am
+                            <span>{{ bio.full_name }}</span>
+                        </h1>
+
+                        <h2>{{ bio.job_title }}</h2>
+
+                        <p class="hero-description">
+                            {{ bio.professional_description }}
+                        </p>
+
+                        <div class="contact-details">
+                            {% if bio.email %}
+                                <a href="mailto:{{ bio.email }}">
+                                    {{ bio.email }}
+                                </a>
+                            {% endif %}
+
+                            {% if bio.phone %}
+                                <a href="tel:{{ bio.phone }}">
+                                    {{ bio.phone }}
+                                </a>
+                            {% endif %}
+
+                            {% if bio.location %}
+                                <span>{{ bio.location }}</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="hero-actions">
+                            {% if bio.github_url %}
+                                <a
+                                    class="primary-button"
+                                    href="{{ bio.github_url }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    GitHub Profile
+                                </a>
+                            {% endif %}
+
+                            {% if bio.linkedin_url %}
+                                <a
+                                    class="secondary-button"
+                                    href="{{ bio.linkedin_url }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    LinkedIn Profile
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="hero-image-container">
+                        {% if bio.profile_picture %}
+                            <img
+                                class="profile-picture"
+                                src="{{ bio.profile_picture.url }}"
+                                alt="Profile picture of {{ bio.full_name }}"
+                            >
+                        {% else %}
+                            <div class="profile-placeholder">
+                                {{ bio.full_name|first|upper }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <h1>No active Bio record found</h1>
+
+                    <p>
+                        Add an active Bio record through the
+                        Django administration panel.
+                    </p>
+
+                    <a class="primary-button" href="/admin/">
+                        Open Django Admin
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    {% if educations %}
+        <section class="section-block education-section" id="education">
+            <div class="section-container">
+                <div class="section-heading">
+                    <p class="section-label">
+                        Academic background
+                    </p>
+
+                    <h2>Education</h2>
+
+                    <p>
+                        My academic qualifications and current
+                        learning journey.
+                    </p>
+                </div>
+
+                <div class="education-grid">
+                    {% for education in educations %}
+                        <article class="education-card">
+                            <div class="education-card-top">
+                                <span class="education-period">
+                                    {{ education.start_year }}
+                                    &ndash;
+
+                                    {% if education.is_current %}
+                                        Present
+                                    {% else %}
+                                        {{ education.end_year }}
+                                    {% endif %}
+                                </span>
+
+                                {% if education.is_current %}
+                                    <span class="current-badge">
+                                        Currently Studying
+                                    </span>
+                                {% endif %}
+                            </div>
+
+                            <h3>{{ education.qualification }}</h3>
+
+                            {% if education.field_of_study %}
+                                <p class="education-field">
+                                    {{ education.field_of_study }}
+                                </p>
+                            {% endif %}
+
+                            <p class="education-institution">
+                                {{ education.institution }}
+                            </p>
+
+                            {% if education.location %}
+                                <p class="education-location">
+                                    {{ education.location }}
+                                </p>
+                            {% endif %}
+
+                            {% if education.grade %}
+                                <p class="education-grade">
+                                    <strong>Grade:</strong>
+                                    {{ education.grade }}
+                                </p>
+                            {% endif %}
+
+                            {% if education.description %}
+                                <p class="education-description">
+                                    {{ education.description|linebreaksbr }}
+                                </p>
+                            {% endif %}
+                        </article>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+    {% if skills %}
+    <section class="section-block skills-section" id="skills">
+        <div class="section-container">
+            <div class="section-heading">
+                <p class="section-label">
+                    Technical abilities
+                </p>
+
+                <h2>Skills</h2>
+
+                <p>
+                    Technologies, tools, and professional abilities
+                    that I use in my academic and personal projects.
+                </p>
+            </div>
+
+            <div class="skills-grid">
+                {% for skill in skills %}
+                    <article class="skill-card">
+                        <div class="skill-header">
+                            <div>
+                                <span class="skill-category">
+                                    {{ skill.get_category_display }}
+                                </span>
+
+                                <h3>{{ skill.name }}</h3>
+                            </div>
+
+                            <span class="skill-percentage">
+                                {{ skill.proficiency }}%
+                            </span>
+                        </div>
+
+                        {% if skill.description %}
+                            <p class="skill-description">
+                                {{ skill.description }}
+                            </p>
+                        {% endif %}
+
+                        <div
+                            class="skill-progress"
+                            role="progressbar"
+                            aria-label="{{ skill.name }} proficiency"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            aria-valuenow="{{ skill.proficiency }}"
+                        >
+                            <div
+                                class="skill-progress-fill"
+                                style="width: {{ skill.proficiency }}%;"
+                            ></div>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endif %}
+{% if experiences %}
+    <section
+        class="section-block experience-section"
+        id="experience"
+    >
+        <div class="section-container">
+            <div class="section-heading">
+                <p class="section-label">
+                    Practical journey
+                </p>
+
+                <h2>Experience</h2>
+
+                <p>
+                    Academic, professional, and competition-based
+                    experiences that have developed my practical skills.
+                </p>
+            </div>
+
+            <div class="experience-timeline">
+                {% for experience in experiences %}
+                    <article class="experience-item">
+                        <div class="timeline-marker"></div>
+
+                        <div class="experience-card">
+                            <div class="experience-top">
+                                <div>
+                                    <span class="experience-type">
+                                        {{ experience.get_experience_type_display }}
+                                    </span>
+
+                                    <h3>{{ experience.title }}</h3>
+                                </div>
+
+                                <span class="experience-period">
+                                    {{ experience.start_year }}
+                                    &ndash;
+
+                                    {% if experience.is_current %}
+                                        Present
+                                    {% else %}
+                                        {{ experience.end_year }}
+                                    {% endif %}
+                                </span>
+                            </div>
+
+                            <p class="experience-organization">
+                                {{ experience.organization }}
+                            </p>
+
+                            {% if experience.location %}
+                                <p class="experience-location">
+                                    {{ experience.location }}
+                                </p>
+                            {% endif %}
+
+                            <p class="experience-description">
+                                {{ experience.description|linebreaksbr }}
+                            </p>
+
+                            {% if experience.technologies %}
+                                <div class="experience-technologies">
+                                    <strong>Technologies:</strong>
+                                    {{ experience.technologies }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endif %}
+{% if projects %}
+    <section
+        class="section-block projects-section"
+        id="projects"
+    >
+        <div class="section-container">
+            <div class="section-heading">
+                <p class="section-label">
+                    Selected work
+                </p>
+
+                <h2>Projects</h2>
+
+                <p>
+                    A collection of artificial intelligence,
+                    machine learning, cybersecurity, and
+                    systems-based projects.
+                </p>
+            </div>
+
+            <div class="projects-grid">
+                {% for project in projects %}
+                    <article
+                        class="
+                            project-card
+                            {% if project.is_featured %}
+                                featured-project
+                            {% endif %}
+                        "
+                    >
+                        <div class="project-image-area">
+                            {% if project.image %}
+                                <img
+                                    class="project-image"
+                                    src="{{ project.image.url }}"
+                                    alt="{{ project.title }}"
+                                >
+                            {% else %}
+                                <div class="project-placeholder">
+                                    <span>
+                                        {{ project.title|first|upper }}
+                                    </span>
+
+                                    <small>
+                                        {{ project.get_project_type_display }}
+                                    </small>
+                                </div>
+                            {% endif %}
+
+                            {% if project.is_featured %}
+                                <span class="featured-badge">
+                                    Featured
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <div class="project-content">
+                            <span class="project-type">
+                                {{ project.get_project_type_display }}
+                            </span>
+
+                            <h3>{{ project.title }}</h3>
+
+                            <p class="project-short-description">
+                                {{ project.short_description }}
+                            </p>
+
+                            <p class="project-description">
+                                {{ project.description|linebreaksbr }}
+                            </p>
+
+                            <div class="project-technologies">
+                                <strong>Technologies</strong>
+
+                                <span>
+                                    {{ project.technologies }}
+                                </span>
+                            </div>
+
+                            <div class="project-actions">
+                                {% if project.repository_status == "public" and project.github_url %}
+                                    <a
+                                        class="primary-button"
+                                        href="{{ project.github_url }}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        View GitHub
+                                    </a>
+                                {% elif project.repository_status == "private" %}
+                                    <span class="repository-label">
+                                        Private Repository
+                                    </span>
+                                {% else %}
+                                    <span class="repository-label">
+                                        Lab / Academic Project
+                                    </span>
+                                {% endif %}
+
+                                {% if project.live_url %}
+                                    <a
+                                        class="secondary-button"
+                                        href="{{ project.live_url }}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Live Demo
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endif %}
+
+{% endblock %}
