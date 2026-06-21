@@ -15,19 +15,22 @@ import os
 from pathlib import Path
 
 
-# Build paths inside the project like this: BASE_DIR / "subdir".
+# ---------------------------------------------------------------
+# BASE DIRECTORY
+# ---------------------------------------------------------------
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# ------------------------------------------------------------------
+# ---------------------------------------------------------------
 # SECURITY AND ENVIRONMENT SETTINGS
-# ------------------------------------------------------------------
+# ---------------------------------------------------------------
 
-# Render automatically creates the RENDER environment variable.
+# Render automatically creates this environment variable.
 IS_RENDER = bool(os.environ.get("RENDER"))
 
-# Local development uses DEBUG=True by default.
-# Render uses DEBUG=False by default.
+
+# DEBUG is True on the local computer and False on Render.
 DEBUG = (
     os.environ.get(
         "DJANGO_DEBUG",
@@ -36,8 +39,9 @@ DEBUG = (
     == "true"
 )
 
-# During local development, Django can use this temporary fallback key.
-# During production, DJANGO_SECRET_KEY must be configured on Render.
+
+# Local development uses a temporary fallback key.
+# Production requires DJANGO_SECRET_KEY in Render.
 if DEBUG:
     SECRET_KEY = os.environ.get(
         "DJANGO_SECRET_KEY",
@@ -48,19 +52,19 @@ else:
 
     if not SECRET_KEY:
         raise RuntimeError(
-            "DJANGO_SECRET_KEY must be configured in the "
-            "production environment."
+            "DJANGO_SECRET_KEY must be configured "
+            "in the production environment."
         )
 
 
-# Hosts allowed during local development.
+# Hosts permitted during local development.
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
 ]
 
 
-# Render automatically provides its deployed hostname.
+# Render provides its deployed hostname automatically.
 RENDER_EXTERNAL_HOSTNAME = os.environ.get(
     "RENDER_EXTERNAL_HOSTNAME"
 )
@@ -69,9 +73,10 @@ if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 
-# Additional hosts can be added through an environment variable.
+# Additional hosts can be supplied through an environment variable.
+#
 # Example:
-# DJANGO_ALLOWED_HOSTS=12345678.netlify.app,my-domain.com
+# DJANGO_ALLOWED_HOSTS=12345678.netlify.app
 EXTRA_ALLOWED_HOSTS = os.environ.get(
     "DJANGO_ALLOWED_HOSTS",
     "",
@@ -83,20 +88,26 @@ ALLOWED_HOSTS.extend(
     if host.strip()
 )
 
-# Remove duplicate host entries.
+# Remove duplicate values.
 ALLOWED_HOSTS = list(dict.fromkeys(ALLOWED_HOSTS))
 
 
-# Trusted HTTPS origins for Django forms and Admin.
+# ---------------------------------------------------------------
+# CSRF TRUSTED ORIGINS
+# ---------------------------------------------------------------
+
 CSRF_TRUSTED_ORIGINS = []
 
+
+# Trust the Render HTTPS address.
 if RENDER_EXTERNAL_HOSTNAME:
     CSRF_TRUSTED_ORIGINS.append(
         f"https://{RENDER_EXTERNAL_HOSTNAME}"
     )
 
 
-# Additional trusted origins can be supplied during deployment.
+# Additional origins can be supplied during deployment.
+#
 # Example:
 # DJANGO_CSRF_TRUSTED_ORIGINS=https://12345678.netlify.app
 EXTRA_CSRF_ORIGINS = os.environ.get(
@@ -115,7 +126,7 @@ CSRF_TRUSTED_ORIGINS = list(
 )
 
 
-# Security settings used when the project is deployed.
+# Production security configuration.
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = (
         "HTTP_X_FORWARDED_PROTO",
@@ -126,9 +137,9 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
 
 
-# ------------------------------------------------------------------
+# ---------------------------------------------------------------
 # APPLICATION DEFINITION
-# ------------------------------------------------------------------
+# ---------------------------------------------------------------
 
 INSTALLED_APPS = [
     # Django built-in applications
@@ -151,6 +162,10 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+
+    # WhiteNoise serves CSS, JavaScript, and collected static files.
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -166,8 +181,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": (
-            "django.template.backends.django."
-            "DjangoTemplates"
+            "django.template.backends.django.DjangoTemplates"
         ),
         "DIRS": [
             BASE_DIR / "templates",
@@ -175,18 +189,9 @@ TEMPLATES = [
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
-                (
-                    "django.template.context_processors."
-                    "request"
-                ),
-                (
-                    "django.contrib.auth.context_processors."
-                    "auth"
-                ),
-                (
-                    "django.contrib.messages.context_processors."
-                    "messages"
-                ),
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
@@ -196,9 +201,9 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 
-# ------------------------------------------------------------------
+# ---------------------------------------------------------------
 # DATABASE
-# ------------------------------------------------------------------
+# ---------------------------------------------------------------
 
 DATABASES = {
     "default": {
@@ -208,9 +213,9 @@ DATABASES = {
 }
 
 
-# ------------------------------------------------------------------
+# ---------------------------------------------------------------
 # PASSWORD VALIDATION
-# ------------------------------------------------------------------
+# ---------------------------------------------------------------
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -240,9 +245,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# ------------------------------------------------------------------
+# ---------------------------------------------------------------
 # INTERNATIONALIZATION
-# ------------------------------------------------------------------
+# ---------------------------------------------------------------
 
 LANGUAGE_CODE = "en-us"
 
@@ -253,10 +258,10 @@ USE_I18N = True
 USE_TZ = True
 
 
-# ------------------------------------------------------------------
+# ---------------------------------------------------------------
 # STATIC FILES
-# CSS, JavaScript, icons, and website design assets
-# ------------------------------------------------------------------
+# CSS, JavaScript, icons, and design assets
+# ---------------------------------------------------------------
 
 STATIC_URL = "/static/"
 
@@ -264,23 +269,55 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-# Deployment services collect static files into this folder.
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
-# ------------------------------------------------------------------
+# WhiteNoise storage compresses static files and generates
+# versioned filenames for browser caching.
+STORAGES = {
+    "default": {
+        "BACKEND": (
+            "django.core.files.storage.FileSystemStorage"
+        ),
+    },
+    "staticfiles": {
+        "BACKEND": (
+            "whitenoise.storage."
+            "CompressedManifestStaticFilesStorage"
+        ),
+    },
+}
+
+
+# ---------------------------------------------------------------
 # MEDIA FILES
 # Profile pictures and project images
-# ------------------------------------------------------------------
-
-MEDIA_URL = "/media/"
+# ---------------------------------------------------------------
 
 MEDIA_ROOT = BASE_DIR / "media"
 
 
-# ------------------------------------------------------------------
+# Locally, Django serves uploaded files from /media/.
+#
+# On Render, the media folder already stored in the repository
+# is collected with the static files so the existing profile
+# picture remains available.
+if IS_RENDER:
+    MEDIA_URL = "/static/media/"
+
+    STATICFILES_DIRS.append(
+        (
+            "media",
+            MEDIA_ROOT,
+        )
+    )
+else:
+    MEDIA_URL = "/media/"
+
+
+# ---------------------------------------------------------------
 # DEFAULT PRIMARY KEY
-# ------------------------------------------------------------------
+# ---------------------------------------------------------------
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 ```
